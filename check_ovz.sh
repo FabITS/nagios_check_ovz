@@ -89,7 +89,7 @@ critical=0
 warning=0
 
 command -v vzlist >& /dev/null || { echo >&2 "vzlist is required but not found. aborting..."; exit 4; }
-list=`vzlist`
+list=`vzlist 2> /dev/null`
 while read -r srv
 do
 	if [[ "$srv" == *running* ]]; then
@@ -98,10 +98,10 @@ do
 		NPROC=`echo $srv | awk '{print $2}'`
 		if [ ! -z $PROC_CRIT ] && [ $NPROC -gt $PROC_CRIT ]; then
 			critical=1
-			echo "CRITICAL: $CID has $NPROC procs"
+			echo -n "CRITICAL: $CID has $NPROC procs\n"
 		elif [ ! -z $PROC_WARN ] && [ $NPROC -gt $PROC_WARN ]; then
 			warning=1
-			echo "WARNING: $CID has $NPROC procs"
+			echo -n "WARNING: $CID has $NPROC procs\n"
 		fi
 		
 		if [ ! -z $FAIL_WARN ] || [ ! -z $FAIL_CRIT ]; then
@@ -118,11 +118,11 @@ do
 				if [ ! -z $FAIL_CRIT ] && [ $fails -gt $FAIL_CRIT ]; then
 					critical=1
 					resource=`echo $line | awk '{print $1}'`
-					echo "CRITICAL: $CID $resource has $fails fails"
+					echo -n "CRITICAL: $CID $resource has $fails fails\n"
 				elif [ ! -z $FAIL_WARN ] && [ $fails -gt $FAIL_WARN ]; then
 					warning=1
 					resource=`echo $line | awk '{print $1}'`
-					echo "WARNING: $CID $resource has $fails fails"
+					echo -n "WARNING: $CID $resource has $fails fails\n"
 				fi
 				
 			done <<< "`egrep -A23 "$CID:" /proc/user_beancounters`"
@@ -131,7 +131,7 @@ do
 done <<< "$list"
 
 if [ $running -eq 0 ]; then
-	echo "UNKNOWN: no servers running"
+	echo -n "UNKNOWN: no servers running\n"
 	exit 3
 fi
 

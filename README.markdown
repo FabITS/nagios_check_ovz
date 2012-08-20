@@ -6,14 +6,10 @@ This nagios plugin checks for the number of processes running and number of bean
 
 check_ovz.sh
 * Define the limit for number of processes to trigger a warning state
-    --nproc-warning [num]
-        -nw [num]
+    --nproc-warning [num] OR -nw [num]
 * Define the limit for number of processes to trigger a critical state
-    --nproc-critical [num]
-    -nc [num]
+    --nproc-critical [num] OR -nc [num]
 * Define the limit for number of beancounter fails to trigger a warning state
-    --fail-warning [num]
-    -fw [num]
+    --fail-warning [num] OR -fw [num]
 * Define the limit for number of beancounter fails to trigger a critical state
-    --fail-critical [num]
-    -fc [num]
+    --fail-critical [num] OR -fc [num]

@@ -9,6 +9,31 @@ do
     # reads options in the form --longNameOpt
     if [ "${PARAM:0:1}" == "-" ]; then
         case $PARAM in
+            --help|-h )
+            	echo "check_ovz.sh [options]"
+            	echo ""
+            	echo "Latest version available at: https://github.com/FabITS/nagios_check_ovz"
+            	echo ""
+            	echo "At least one option must be given."
+            	echo ""
+		echo "Define the limit for number of processes to trigger a warning state:"
+            	echo "    --nproc-warning [num]"
+            	echo "    -nw [num]"
+            	echo ""
+            	echo "Define the limit for number of processes to trigger a critical state:"
+            	echo "    --nproc-critical [num]"
+            	echo "    -nc [num]"
+            	echo ""
+            	echo "Define the limit for number of beancounter fails to trigger a warning state:"
+            	echo "    --fail-warning [num]"
+            	echo "    -fw [num]"
+            	echo ""
+            	echo "Define the limit for number of beancounter fails to trigger a critical state:"
+            	echo "    --fail-critical [num]"
+            	echo "    -fc [num]"
+            	echo ""
+            	exit 0
+            	;;
             --nproc-warning|-nw )
             	PROC_WARN=`echo $@ | awk -v PCNT=$(($PCNT+1)) '{print $PCNT}'`
             	if [[ $PROC_WARN != [0-9]* ]]; then

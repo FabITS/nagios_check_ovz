@@ -69,7 +69,7 @@ do
 done
 
 if [ -z $PROC_WARN ] && [ -z $PROC_CRIT ] && [ -z $FAIL_WARN ] && [ -z $FAIL_CRIT ]; then
-	echo "no parameters given. aborting..."
+	echo "no parameters given. use $THISFILE --help to show a list of options."
 	exit 4
 fi
 
